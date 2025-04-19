@@ -53,5 +53,56 @@ def get_task(id):
 
 
 
+@app.route('/user/<username>')
+def show_user(username):
+    print(username)
+    print(type(username))
+    return username
+
+
+@app.route('/tasks/<int:id>', methods=["PUT "])
+def update_task(id):
+    task=None
+    for t in tasks:
+        if t.id == id:
+            task = t
+            break
+    print(task)
+
+    if task == None:
+        return jsonify({"message": " Nao foi possivel encontrar a atividade"}), 404
+
+    
+    
+    data = request.get_json()
+    task.title =  data['title']
+    task.description = data['description'] 
+    task.completed = data['completed']
+    print(task)
+
+    return jsonify({"message": " Tarefa atualizada com socesso"})
+
+
+
+@app.route('/tasks/<int:id>', methods=["DELETE"])
+def delete_task(id):
+    task = None
+
+    for t in tasks:
+        if t.id == id:
+            task = t
+            break
+
+    
+    if not task:
+        return jsonify({"message": " nao foi possivel encontrar a atividade"}), 404
+    
+    tasks.remove(task)
+    return jsonify({"message":"Tarefa deletada com sucesso"})
+
+
+
+           
+
 if __name__=="__main__":
     app.run(debug=True)
