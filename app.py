@@ -22,7 +22,7 @@ def create_task():
     task_id_control+=1
     tasks.append(new_task)
     print(data)
-    return jsonify({"message": "Nova tarefa criada com sucesso"})
+    return jsonify({"message": "Nova tarefa criada com sucesso", 'id':new_task.id })
 
 
 
@@ -60,7 +60,7 @@ def show_user(username):
     return username
 
 
-@app.route('/tasks/<int:id>', methods=["PUT "])
+@app.route('/tasks/<int:id>', methods=[ 'PUT' ])
 def update_task(id):
     task=None
     for t in tasks:
@@ -84,7 +84,7 @@ def update_task(id):
 
 
 
-@app.route('/tasks/<int:id>', methods=["DELETE"])
+@app.route('/tasks/<int:id>', methods=['DELETE'])
 def delete_task(id):
     task = None
 
